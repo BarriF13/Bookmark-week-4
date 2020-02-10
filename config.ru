@@ -1,4 +1,4 @@
 require "./app"
-run Bookmark
+run Webapp
 # RU means rackup. 
 #run means use one run command 
