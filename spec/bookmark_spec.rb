@@ -11,3 +11,4 @@ describe Bookmark do
     end
   end
 end
+# DATA BASE HAS MAKDE bookmarkbarridb
