@@ -1,3 +1,12 @@
+
+ENV['ENVIRONMENT'] = 'test'
+
+RSpec.configure do |config|
+  config.before(:each) do
+    setup_test_database
+  end
+end
+
 ENV['RACK_ENV'] = 'test'#faking a website for testing
 
 # require our Sinatra app file
@@ -7,7 +16,14 @@ require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
 require 'rack/test'
+require_relative './setup_test_database'
 #require 'features/web_helpers.rb'
+
+RSpec.configure do |config|
+  config.before(:each) do
+    setup_test_database
+  end
+end
 
 # tell Capybara about our app class
 Capybara.app = Webapp
@@ -27,6 +43,7 @@ Capybara.app = Webapp
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+ 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
