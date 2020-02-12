@@ -18,4 +18,21 @@ class Webapp < Sinatra::Base
     @bookmarks = Bookmark.all
     erb :'bookmarks/index'
   end
+
+    get '/bookmarks/new'do
+    erb :new
+    end
+
+    post '/bookmarks' do
+      # p " you just added bastard"
+      # p params #bubble-------changing to below codes
+      #we are refactoring code below--------------
+      # url = params['url']
+      # connection = PG.connect(dbname: 'bookmark_test')
+      # connection.exec("INSERT INTO bookmarks (url) VALUES('#{url}')")
+      # redirect '/bookmarks'
+      Bookmark.create(url: params[:url])
+      redirect '/bookmarks'
+    end
+
 end
