@@ -4,12 +4,10 @@ require './lib/bookmark'
 
 class Webapp < Sinatra::Base
   enable :sessions
-# get '/' do
-#   'Testing infrastructure working!'
-# end
   get '/' do
-    erb :index
+    'Hello world!'
   end
+  
 
   get '/bookmarks' do
     # print the ENVIROMENT variable--Sinatra is built on a technology called Rack. Rack provides Sinatra with a built-in variable, ENV. It's available anywhere in Sinatra.
@@ -23,7 +21,7 @@ class Webapp < Sinatra::Base
     erb :new
     end
 
-    post '/bookmarks' do
+    post '/bookmarks/new' do
       # p " you just added bastard"
       # p params #bubble-------changing to below codes
       #we are refactoring code below--------------
@@ -31,7 +29,7 @@ class Webapp < Sinatra::Base
       # connection = PG.connect(dbname: 'bookmark_test')
       # connection.exec("INSERT INTO bookmarks (url) VALUES('#{url}')")
       # redirect '/bookmarks'
-      Bookmark.create(url: params[:url])
+      Bookmark.create(url: params[:url],title: params[:title])
       redirect '/bookmarks'
     end
 

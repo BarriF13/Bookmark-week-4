@@ -1,4 +1,9 @@
-"http://www.makersacademy.com" 
-"http://www.destroyallsoftware.com"
-"http://www.google.com"
-'Hello world!'
+<ul>
+  <% @bookmarks.each do |bookmark| %>
+    <li>
+      <a href="<%= bookmark.url %>">
+      <%= bookmark.title %>
+      </a>
+    </li>
+  <% end %>
+</ul>
