@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require './lib/bookmark'
+require_relative './lib/database_connection_setup.rb'
 
 
 class Webapp < Sinatra::Base
