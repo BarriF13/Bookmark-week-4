@@ -3,7 +3,7 @@ require './lib/bookmark'
 
 
 class Webapp < Sinatra::Base
-  enable :sessions
+  enable :sessions, :method_override
   get '/' do
     'Hello world!'
   end
@@ -30,6 +30,12 @@ class Webapp < Sinatra::Base
       # connection.exec("INSERT INTO bookmarks (url) VALUES('#{url}')")
       # redirect '/bookmarks'
       Bookmark.create(url: params[:url],title: params[:title])
+      redirect '/bookmarks'
+    end
+
+    delete '/bookmarks/:id' do
+      #let's print out the form params
+      Bookmark.delete(id: params[:id])
       redirect '/bookmarks'
     end
 
