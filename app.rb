@@ -1,10 +1,16 @@
 require 'sinatra/base'
+require 'sinatra/flash'
+require 'uri'
 require './lib/bookmark'
-require_relative './lib/database_connection_setup.rb'
+require_relative './lib/comment'
+require_relative './lib/database_connection_setup'
+
 
 
 class Webapp < Sinatra::Base
   enable :sessions, :method_override
+  register Sinatra::Flash
+
   get '/' do
     'Hello world!'
   end
@@ -30,7 +36,7 @@ class Webapp < Sinatra::Base
       # connection = PG.connect(dbname: 'bookmark_test')
       # connection.exec("INSERT INTO bookmarks (url) VALUES('#{url}')")
       # redirect '/bookmarks'
-      Bookmark.create(url: params[:url],title: params[:title])
+      flash[:notice] = "Please submit a valid URL" unless Bookmark.create(url: params[:url], title: params[:title])
       redirect '/bookmarks'
     end
 
@@ -47,6 +53,16 @@ class Webapp < Sinatra::Base
 
     patch '/bookmarks/:id' do
       Bookmark.update(id: params[:id], title: params[:title], url: params[:url])
+      redirect '/bookmarks'
+    end
+    # Setting up the comments
+    get '/bookmarks/:id/comments/new' do
+      @bookmark_id = params[:id]
+      erb :'comments/new'
+    end
+  
+    post '/bookmarks/:id/comments' do
+      Comment.create(bookmark_id: params[:id], text: params[:comment])
       redirect '/bookmarks'
     end
 
